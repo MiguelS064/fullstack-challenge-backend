@@ -1,31 +1,48 @@
 ## Backend - FastAPI
 
 API REST desarrollada con FastAPI que consume datos de StackExchange y realiza consultas SQL sobre vuelos en México.
-El proyecto está completamente dockerizado y listo para ejecutarse fácilmente.
+El proyecto está completamente dockerizado y listo para ejecutarse en cualquier entorno.
+
 
 ## Requisitos previos
-Docker  
-Docker Compose  
-PostgreSQL
+Docker instalado  
+Docker Compose instalado  
+Docker Desktop en ejecución 
 
 
-## Configuración de red (obligatorio)
-Antes de levantar los contenedores, es necesario crear la red de Docker que permitirá la comunicación entre backend y frontend:
+## Tecnologías
+FastAPI                     -> Framework principal 
+PostgreSQL                  -> Base de datos
+Docker + Docker Compose     -> Contenedorización
+pytest                      -> Pruebas unitarias
+Swagger                     -> Documentación automática
 
-    * docker network create reto-network
+
+## Instalación y ejecución
+
+### 1. Crear la red Doker
+Antes de levantar los contenedores, es necesario crear la red de Docker que permitirá la comunicación entre backend y frontend.
+
+Abrir una terminal en la raíz del proyecto backend y ejecutar:
+
+    docker network create reto-network
 
 Este paso se realiza una sola vez.
 
 
-## Tecnologías
-FastAPI  
-PostgreSQL  
-Docker 
+### 2. Levantar los contenedores
+1. En una terminal en la carpeta raíz del proyecto (donde se encuentra el archivo docker-compose.yml)
+
+2. Ejecutar:
+
+    docker-compose up --build
+
+3. Esperar a que los contenedores se levanten correctamente
 
 
-## Ejecución
-    * docker-compose up --build
+### 3. Verificar que todo esté corriendo
 
+    docker ps
 
 ## Accesos
     * API: http://localhost:8000
@@ -33,10 +50,26 @@ Docker
 
 
 ## Base de datos
-La base de datos PostgreSQL se inicializa automáticamente mediante el archivo init.sql, el cual incluye:
 
-- Creación de tablas
-- Inserción de datos
+PostgreSQL se inicializa automáticamente al levantar los contenedores mediante 'init.sql', que incluye:
+
+- Creación de tablas: 'aerolineas', 'aeropuertos', 'movimientos', 'vuelos'
+- Inserción de datos de ejemplo
+
+No se requiere ninguna configuración manual.
+
+
+## Pruebas unitarias
+
+Los tests cubren todos los servicios (StackExchange y Vuelos) con 10 casos de prueba.
+Abrir una terminal en la raíz del proyecto y ejecutar:
+
+# Correr tests
+    docker exec -it backend pytest app/tests/ -v
+
+# Con reporte de cobertura
+    docker exec -it backend pytest app/tests/ --cov=app/services --cov-report=term-missing
+
 
 
 ## Endpoints

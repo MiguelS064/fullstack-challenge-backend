@@ -1,4 +1,6 @@
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 URL = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow"
 
@@ -21,7 +23,7 @@ def get_max_reputation():
     data = get_data()
     max_rep = max(data, key=lambda x: x["owner"].get("reputation", 0))
 
-    print("Mayor reputación:", max_rep["title"])
+    logger.info("Mayor reputación: %s", max_rep["title"])
 
     return {
         "title": max_rep["title"],
@@ -36,7 +38,7 @@ def get_min_views():
     data = get_data()
     min_views = min(data, key=lambda x: x["view_count"])
 
-    print("Menor vistas:", min_views["title"])
+    logger.info("Menor vistas: %s", min_views["title"])
 
     return {
         "title": min_views["title"],
@@ -51,7 +53,7 @@ def get_oldest():
     data = get_data()
     oldest = min(data, key=lambda x: x["creation_date"])
 
-    print("Más vieja:", oldest["title"])
+    logger.info("Más vieja: %s", oldest["title"])
 
     return {
         "title": oldest["title"],
@@ -66,8 +68,7 @@ def get_newest():
     data = get_data()
     newest = max(data, key=lambda x: x["creation_date"])
 
-    print("Más nueva:", newest["title"])
-
+    logger.info("Más nueva: %s", newest["title"])
     return {
         "title": newest["title"],
         "reputation": newest["owner"]["reputation"],
