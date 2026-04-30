@@ -4,15 +4,18 @@ API REST desarrollada con FastAPI que consume datos de StackExchange y realiza c
 El proyecto está completamente dockerizado y listo para ejecutarse fácilmente.
 
 ## Requisitos previos
-Docker  
-Docker Compose  
-PostgreSQL
+Docker instalado  
+Docker Compose instalado  
+Docker Desktop en ejecución 
 
 
 ## Configuración de red (obligatorio)
-Antes de levantar los contenedores, es necesario crear la red de Docker que permitirá la comunicación entre backend y frontend:
 
-    * docker network create reto-network
+Antes de levantar los contenedores, es necesario crear la red de Docker que permitirá la comunicación entre backend y frontend.
+
+Abrir una terminal en la raíz del proyecto backend y ejecutar:
+
+    docker network create reto-network
 
 Este paso se realiza una sola vez.
 
@@ -24,7 +27,15 @@ Docker
 
 
 ## Ejecución
-    * docker-compose up --build
+
+1. Abrir una terminal en la carpeta raíz del proyecto (donde se encuentra el archivo docker-compose.yml)
+
+2. Ejecutar:
+
+    docker-compose up --build
+
+3. Esperar a que los contenedores se levanten correctamente
+
 
 
 ## Accesos
